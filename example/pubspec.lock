@@ -156,10 +156,10 @@ packages:
     dependency: transitive
     description:
       name: google_api_headers
-      sha256: "104a73abca28c65b969482077d4c98c871ac38c3dd426a1536287baec50cec01"
+      sha256: b27a55935d5c51cedda8a925f5df8388cc327c94a47fef5a4335e8707e089878
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.0"
+    version: "1.6.0"
   google_maps:
     dependency: transitive
     description:

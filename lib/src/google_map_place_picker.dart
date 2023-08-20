@@ -403,16 +403,13 @@ class GoogleMapPlacePicker extends StatelessWidget {
           return Container();
         } else {
           return Positioned(
-            bottom: MediaQuery.of(context).size.height * 0.1 - 3.6,
-            right: 2,
+            bottom: 50,
+            right: 10,
             child: Card(
               elevation: 4.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
-              ),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.15 - 13,
-                height: 107,
+                width: 40,
+                height: 100,
                 child: Column(
                   children: <Widget>[
                     IconButton(
@@ -466,7 +463,8 @@ class GoogleMapPlacePicker extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.7,
       borderRadius: BorderRadius.circular(12.0),
       elevation: 4.0,
-      color: Theme.of(context).cardColor,
+      color: Color(0xFF5E3A8C),
+      //color: Theme.of(context).cardColor,
       child: state == SearchingState.Searching
           ? _buildLoadingIndicator()
           : _buildSelectionDetails(context, data!),
@@ -480,7 +478,9 @@ class GoogleMapPlacePicker extends StatelessWidget {
         child: SizedBox(
           width: 24,
           height: 24,
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -497,72 +497,91 @@ class GoogleMapPlacePicker extends StatelessWidget {
             pickArea!.radius;
     MaterialStateColor buttonColor = MaterialStateColor.resolveWith(
         (states) => canBePicked ? Colors.lightGreen : Colors.red);
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: Column(
-        children: <Widget>[
-          Text(
-            result.formattedAddress!,
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10),
-          (canBePicked && (selectText?.isEmpty ?? true)) ||
-                  (!canBePicked && (outsideOfPickAreaText?.isEmpty ?? true))
-              ? SizedBox.fromSize(
-                  size: Size(56, 56), // button width and height
-                  child: ClipOval(
-                    child: Material(
-                      child: InkWell(
-                          overlayColor: buttonColor,
-                          onTap: () {
-                            if (canBePicked) {
-                              onPlacePicked!(result);
-                            }
-                          },
-                          child: Icon(
-                              canBePicked
-                                  ? Icons.check_sharp
-                                  : Icons.app_blocking_sharp,
-                              color: buttonColor)),
-                    ),
-                  ),
-                )
-              : SizedBox.fromSize(
-                  size: Size(MediaQuery.of(context).size.width * 0.8,
-                      56), // button width and height
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Material(
-                      child: InkWell(
-                          overlayColor: buttonColor,
-                          onTap: () {
-                            if (canBePicked) {
-                              onPlacePicked!(result);
-                            }
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                  canBePicked
-                                      ? Icons.check_sharp
-                                      : Icons.app_blocking_sharp,
-                                  color: buttonColor),
-                              SizedBox.fromSize(size: new Size(10, 0)),
-                              Text(
-                                  canBePicked
-                                      ? selectText!
-                                      : outsideOfPickAreaText!,
-                                  style: TextStyle(color: buttonColor))
-                            ],
-                          )),
-                    ),
-                  ),
-                )
-        ],
-      ),
-    );
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          )),
+          backgroundColor: Color(0xFF5E3A8C),
+        ),
+        onPressed: () {
+          if (canBePicked) {
+            onPlacePicked!(result);
+          }
+        },
+        child: Text(canBePicked ? "Confirm" : outsideOfPickAreaText!));
+
+    //  Container(
+    //   margin: EdgeInsets.all(10),
+    //   child: Column(
+    //     children: <Widget>[
+    //       Text(
+    //         result.formattedAddress!,
+    //         style: TextStyle(fontSize: 18),
+    //         textAlign: TextAlign.center,
+    //       ),
+    //       SizedBox(height: 10),
+    //       (canBePicked && (selectText?.isEmpty ?? true)) ||
+    //               (!canBePicked && (outsideOfPickAreaText?.isEmpty ?? true))
+    //           ?
+
+    //           SizedBox.fromSize(
+    //               size: Size(56, 56), // button width and height
+    //               child: ClipOval(
+    //                 child: Material(
+    //                   child: InkWell(
+    //                       overlayColor: buttonColor,
+    //                       onTap: () {
+    //                         if (canBePicked) {
+    //                           onPlacePicked!(result);
+    //                         }
+    //                       },
+    //                       child: Icon(
+    //                           canBePicked
+    //                               ? Icons.check_sharp
+    //                               : Icons.app_blocking_sharp,
+    //                           color: buttonColor)),
+    //                 ),
+    //               ),
+    //             )
+    //           : SizedBox.fromSize(
+    //               size: Size(MediaQuery.of(context).size.width * 0.8,
+    //                   56), // button width and height
+    //               child: ClipRRect(
+    //                 borderRadius: BorderRadius.circular(10.0),
+    //                 child: Material(
+    //                     child:
+
+    //                     InkWell(
+    //                         overlayColor: buttonColor,
+    //                         onTap: () {
+    //                           if (canBePicked) {
+    //                             onPlacePicked!(result);
+    //                           }
+    //                         },
+    //                         child: Row(
+    //                           mainAxisAlignment: MainAxisAlignment.center,
+    //                           children: [
+    //                             Icon(
+    //                                 canBePicked
+    //                                     ? Icons.check_sharp
+    //                                     : Icons.app_blocking_sharp,
+    //                                 color: buttonColor),
+    //                             SizedBox.fromSize(size: new Size(10, 0)),
+    //                             Text(
+    //                                 canBePicked
+    //                                     ? selectText!
+    //                                     : outsideOfPickAreaText!,
+    //                                 style: TextStyle(color: buttonColor))
+    //                           ],
+    //                         )),
+    //                     ),
+    //               ),
+    //             )
+    //   ],
+    // ),
+    // );
   }
 
   Widget _buildMapIcons(BuildContext context) {
